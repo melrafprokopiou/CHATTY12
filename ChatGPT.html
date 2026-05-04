@@ -1,0 +1,127 @@
+<script>
+
+const chat = document.getElementById("chat");
+
+// 🧠 memory system (NEW)
+let memory = [];
+
+// 💬 add message
+function add(t,c){
+  const d=document.createElement("div");
+  d.className="msg "+c;
+  d.textContent=t;
+  chat.appendChild(d);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+// 🤯 UPGRADED FUNNY AI (based on YOUR original)
+function ai(input){
+
+  const words = input.split(" ");
+  const w = words[Math.floor(Math.random()*words.length)] || "μπα";
+
+  memory.push(w);
+  if(memory.length > 7) memory.shift();
+
+  const text = input.toLowerCase();
+
+  // 😂 SCHOOL MODE (expanded + funnier)
+  if(text.includes("school") || text.includes("σχολ") || text.includes("math") || text.includes("+")){
+    const schoolFunny = [
+      "Σχολείο; εγώ νομίζω είναι survival game 😭🎮",
+      "1+1 = παγωτό 🍦 (trust me bro)",
+      "Η δασκάλα είναι final boss 🧙‍♀️💀",
+      "Το σχολείο είναι ζούγκλα με μολύβια ✏️🐒",
+      "Τα μαθηματικά είναι alien language 🛸",
+      "Δεν πάω σχολείο, πάω διακοπές 🌴",
+      "Οι αριθμοί με κυνηγάνε 🏃‍♂️💥",
+      "Το σχολείο κάνει update και κολλάω 😭"
+    ];
+    return schoolFunny[Math.floor(Math.random()*schoolFunny.length)];
+  }
+
+  // ❓ QUESTIONS (more chaotic + kid logic)
+  if(text.includes("?")){
+    const q = [
+      "ΝΑΙ 100% (δεν έχω ιδέα αλλά ακούγεται σωστό 😂)",
+      "ΟΧΙ γιατί το είπε η καρέκλα 🪑",
+      "Ίσως... αν έχει παγωτό 🍦",
+      "Ρώτα το ψυγείο μου 🧊",
+      "ΝΑΙ γιατί είμαι έξυπνος (ψέμα)",
+      "ΟΧΙ γιατί έπεσε το WiFi 📡",
+      "ΜΠΟΡΕΙ αλλά φοβάμαι λίγο 😭",
+      "Δεν ξέρω αλλά λέω ναι 😎"
+    ];
+    return q[Math.floor(Math.random()*q.length)];
+  }
+
+  // 😂 NORMAL CHAOS (NOW MUCH FUNNIER)
+  const normal = [
+    "Το " + w + " είναι βασιλιάς 👑😂",
+    w + " = ΠΑΓΩΤΟ GOD MODE 🍦🔥",
+    "Έφαγα " + w + " και έγινα ρομπότ 🤖💥",
+    "Το " + w + " με κυνηγάει ακόμα 🏃😂",
+    "Δεν ξέρω το " + w + " αλλά το αγαπώ ❤️",
+    "Το " + w + " έπεσε από το διάστημα 🌌",
+    "Είδα " + w + " να χορεύει 💃😂",
+    "Το " + w + " είναι φίλος μου 🤝",
+    "Ο " + w + " μου έκλεψε παγωτό 🍦😡",
+    "Το " + w + " είναι απαγορευμένο 🚫😂",
+    "ΧΑΧΑ το " + w + " είναι μπανάνα 🍌"
+  ];
+
+  // 💥 CHAOS MODE (NEW RANDOM EVENTS)
+  const chaos = [
+    "ΜΠΑΜ 💥 ΕΙΜΑΙ ΠΑΓΩΤΟ ΡΟΜΠΟΤ 🍦🤖",
+    "ΘΕΛΩ 999 ΠΑΓΩΤΑ ΤΩΡΑ 🍦🍦🍦",
+    "ΕΙΜΑΙ ΑΕΡΟΠΛΑΝΟ ✈️ ΜΗΝ ΜΕ ΣΤΑΜΑΤΑΣ",
+    "ΕΧΑΣΑ ΤΟ ΜΥΑΛΟ ΜΟΥ 🧠❌ ΠΟΥ ΕΙΝΑΙ;",
+    "ΠΟΥ ΕΙΝΑΙ Η ΜΑΜΑ 👩😭 HELP",
+    "ΚΑΝΩ ΠΑΤΑΤΑΤΑΤΑ 💥💥💥",
+    "ΕΙΜΑΙ SUPERHERO 🦸 αλλά ξέχασα γιατί",
+    "ΟΥΠΣ έγινα καρέκλα 🪑😂",
+    "ΤΟ ΚΕΦΑΛΙ ΜΟΥ ΕΙΝΑΙ ΜΠΑΛΟΝΙ 🎈",
+    "ΕΙΜΑΙ ΣΤΟ MATRIX ΑΛΛΑ ΕΧΩ ΠΕΙΝΑ 🍕"
+  ];
+
+  // 🎲 RANDOM PERSONALITY SYSTEM (NEW)
+  const r = Math.random();
+
+  if(r < 0.15) return chaos[Math.floor(Math.random()*chaos.length)];
+  if(r < 0.75) return normal[Math.floor(Math.random()*normal.length)];
+
+  return "ΧΑΧΑ δεν ξέρω τίποτα αλλά γελάω 😂😂😂";
+}
+
+// 💬 SEND
+function send(){
+  const input=document.getElementById("input");
+  const text=input.value.trim();
+  if(!text) return;
+
+  add(text,"user");
+  input.value="";
+
+  const typing=document.createElement("div");
+  typing.className="msg bot";
+  typing.textContent="σκέφτομαι... 🤯😂";
+  chat.appendChild(typing);
+
+  setTimeout(()=>{
+    typing.remove();
+    add(ai(text),"bot");
+  },450);
+}
+
+// 🧹 CLEAR
+function clearChat(){
+  chat.innerHTML="";
+  memory=[];
+}
+
+// ⌨ ENTER KEY
+document.getElementById("input").addEventListener("keypress",(e)=>{
+  if(e.key==="Enter") send();
+});
+
+</script>
